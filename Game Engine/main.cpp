@@ -10,7 +10,7 @@
 using namespace std;
 // globals
 // constants
-const glm::vec2 SCREEN_SIZE(800, 600);
+const glm::vec2 SCR0EEN_SIZE(800, 600);
 
 GLFWwindow* window = NULL;
 
