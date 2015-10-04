@@ -13,9 +13,10 @@ private:
 	
 public :
 	GLuint VBO;
-	GLuint VBO2;
 	GLuint VAO;
-	GLuint VAO2;
+	GLuint EBO;
+	GLuint texture1;
+	GLuint texture2;
 	GLFWwindow* window = NULL;
 	void setRunning(bool newRunning);
 	bool getRunning();
