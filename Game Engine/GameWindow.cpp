@@ -1,5 +1,18 @@
 #include "GameWindow.h"
 #include <SOIL\SOIL.h>
+
+glm::vec3 cubePositions[] = {
+	glm::vec3(0.0f, 0.0f, 0.0f),
+	glm::vec3(2.0f, 5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3(2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f, 3.0f, -7.5f),
+	glm::vec3(1.3f, -2.0f, -2.5f),
+	glm::vec3(1.5f, 2.0f, -2.5f),
+	glm::vec3(1.5f, 0.2f, -1.5f),
+	glm::vec3(-1.3f, 1.0f, -1.5f)
+};
 void GameWindow::setRunning(bool newRunning){
 	_running = newRunning;
 
@@ -40,12 +53,12 @@ void GameWindow::Init(glm::vec2 ScreenSize, char* windowTitle){
 
 	if (!this->window)
 		throw std::runtime_error("glfwCreateWindow failed. Can your hardware handle OpenGL 3.2?");
-
 	// GLFW settings
 	glfwMakeContextCurrent(this->window);
 	glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
 	if (glewInit() != GLEW_OK)
 		throw std::runtime_error("glewInit failed");
+	glEnable(GL_DEPTH_TEST);
 }
 
 GameWindow::~GameWindow(){
@@ -55,17 +68,56 @@ GameWindow::~GameWindow(){
 void GameWindow:: CreateTriangle(){
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
-		// Positions          // Colors           // Texture Coords
-		0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top Right
-		0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Bottom Right
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
-		-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // Top Left 
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+
+		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 	};
 
 	GLuint indices[] = {  // Note that we start from 0!
 		0, 1, 3,  // First Triangle
 		1, 2, 3   // Second Triangle
 	};
+
+	
+
 
 	_shader.Shader_CreateProg("simple_vert.glslv", "simple_frag.glslf");
 
@@ -81,13 +133,13 @@ void GameWindow:: CreateTriangle(){
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	//glEnableVertexAttribArray(1);
 	// TexCoord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5* sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
@@ -134,6 +186,26 @@ void GameWindow:: CreateTriangle(){
 void GameWindow::DrawTriangle(){ 
 	_shader.Shader_UseProg();
 
+	glm::mat4 model;
+	GLfloat radius = 10.0f;
+	GLfloat camX = sin(glfwGetTime()) * radius;
+	GLfloat camZ = cos(glfwGetTime()) * radius;
+	glm::mat4 view;
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	glm::mat4 projection;
+	projection = glm::perspective(fov, 800.0f / 600.0f, 0.1f, 100.0f);
+	model = glm::rotate(model, (GLfloat)glfwGetTime() * 50.0f, glm::vec3(0.5f, 1.0f, 0.0f));
+
+	
+	// Get their uniform location
+	GLint modelLoc = glGetUniformLocation(_shader.program, "model");
+	GLint viewLoc = glGetUniformLocation(_shader.program, "view");
+	GLint projLoc = glGetUniformLocation(_shader.program, "projection");
+	// Pass them to the shaders
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+	// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 	// Bind Textures using texture units
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
@@ -144,10 +216,20 @@ void GameWindow::DrawTriangle(){
 
 	// Draw container
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	for (GLuint i = 0; i < 10; i++)
+	{
+		glm::mat4 model;
+		model = glm::translate(model, cubePositions[i]);
+		GLfloat angle = 20.0f * i;
+		model = glm::rotate(model, (GLfloat)glfwGetTime() * 50.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	}
 	glBindVertexArray(0);
 
 
 }
+
 
 
