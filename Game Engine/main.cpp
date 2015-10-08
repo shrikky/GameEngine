@@ -1,129 +1,51 @@
+#include <SDL/SDL.h>
 
-// third-party libraries
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
+#include "Game.h"
+
 #include <iostream>
-#include "Mesh.h"
-#include "Camera.h"
-#include "Transformations.h"
-using namespace std;
-// globals
-// constants
-const glm::vec2 SCREEN_SIZE(800, 600);
 
-GLFWwindow* window = NULL;
-
-GLuint gVAO = 0;
-GLuint gVBO = 0;
-int obj_data[6] = { 16, 48, 48, 72, 72, 1 };
-Mesh object;
-Camera mainCam;
-Shader _shader;
-Transformations _transform;
-
-glm::mat4 modelMatrix ;
-glm::mat4 perspectiveMatrix;
-glm::mat4 viewMatrix;
-
-void OnError(int errorCode, const char* msg) {
-	throw std::runtime_error(msg);
-}
-
-void LoadWindow(bool fullscreen) {
-	// initialise GLFW
-	glfwSetErrorCallback(OnError);
-	if (!glfwInit())
-		throw std::runtime_error("glfwInit failed");
-
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-	if (fullscreen)
-		window = glfwCreateWindow((int)SCREEN_SIZE.x, (int)SCREEN_SIZE.y, "OpenGL Tutorial", glfwGetPrimaryMonitor(), NULL);
-	else
-		window = glfwCreateWindow((int)SCREEN_SIZE.x, (int)SCREEN_SIZE.y, "OpenGL Tutorial", NULL, NULL);
-
-	if (!window)
-		throw std::runtime_error("glfwCreateWindow failed. Can your hardware handle OpenGL 3.2?");
-
-	// GLFW settings
-	glfwMakeContextCurrent(window); 
-	glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
-	if (glewInit() != GLEW_OK)
-		throw std::runtime_error("glewInit failed");
-
-}
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+int main(int argc, char* argv[])
 {
-	GLfloat objectSpeed = 0.05f;
-	if (key == GLFW_KEY_W)
-	{
-		glm::vec3 posis = objectSpeed * glm::vec3(0.0, 0.0f, -1.0f);
-		_transform.UpdatePosition(posis);
-	}
-	if (key == GLFW_KEY_S){
-		glm::vec3 posis = objectSpeed * glm::vec3(0.0, 0.0f, 1.0f);
-		_transform.UpdatePosition(posis);
-	}
+	const float dt = 0.01f;
+	float t = 0.0f;
+	float accumulator = 0.0f;
+	float current_time = 0.0f;
 
+	bool quit_flag = 1;
 
-}
-int main() {
+	Game game;
 
-	double lastTime = glfwGetTime();
-	int numFrames = 0;
-
-	if (!glfwInit())
-	{
-		fprintf(stderr, "Failed to initialize GLFW\n");
-		return -1;
-	}
-
-	LoadWindow(false);
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	_shader.Shader_CreateProg("simple_vert.glslv", "simple_frag.glslf");
-	mainCam.InitCamera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	perspectiveMatrix = mainCam.ReturnPerspective(45.0,(800.0f/600.0f), 0.1f, 100.0f);
-	viewMatrix = mainCam.ReturnView();
-	_transform.TransformInit(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(1.0f,1.0f,1.0f), glm::vec3(0.0f,0.0f,0.0f));
-	glfwSetKeyCallback(window, key_callback);
-	int perspPos = glGetUniformLocation(_shader.program, "perspectiveMatrix");
-	int viewpos = glGetUniformLocation(_shader.program, "viewMatrix");
-	int matpos = glGetUniformLocation(_shader.program, "modelMatrix");
-	object.Mesh_init("cube.obj", obj_data);
-	object.Mesh_Setup(&_shader);
-	_shader.Shader_UseProg();
-	glUniformMatrix4fv(perspPos, 1, false, glm::value_ptr(perspectiveMatrix));
-	glUniformMatrix4fv(viewpos, 1, false, glm::value_ptr(viewMatrix));
+	std::cout << "game init attempt...\n";
+	game.init("OpenGL", 800, 600, SDL_WINDOW_OPENGL);
 	
-	glBindVertexArray(gVAO);
-	do {
+	std::cout << "game init success!\n";
+	while (quit_flag)
+	{
+		quit_flag = game.handleEvents();
 
-		double currentTime = glfwGetTime();
-		numFrames++;
-		if (currentTime - lastTime >= 1.0f){
-			printf("%f ms/frame\n",  1000.0/ double(numFrames));
-			numFrames = 0;
-			lastTime += 1.0;
+		float new_time = (float)SDL_GetTicks() / 1000.0f;
+		float delta_time = new_time - current_time;
+
+		if (delta_time <= 0.0f)
+			continue;
+
+		current_time = new_time;
+
+		accumulator += delta_time;
+		while (accumulator >= dt)
+		{
+			game.update(t, dt);
+			accumulator -= dt;
+			t += dt;
 		}
 
-		glClear(GL_COLOR_BUFFER_BIT);
-		// Swap Buffers
-		glUniformMatrix4fv(matpos, 1, false, glm::value_ptr(_transform.ReturnModelMatrix()));
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(0);
-		object.Mesh_Render(&_shader);
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-
-	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
+		game.renderUpdate(dt);
+		game.render();
+	}
 
 
+	std::cout << "game closing...\n";
+	game.destroy();
 
-
-
+	return 0;
 }
