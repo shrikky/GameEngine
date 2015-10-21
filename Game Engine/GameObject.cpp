@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "TransformManager.h"
-#include "ModelManager.h"
 
 GameObject::GameObject()
 {
@@ -11,7 +10,7 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::create(int count, string type)
+void GameObject::create(int count)
 {
 	id = count;
 

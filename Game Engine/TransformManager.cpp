@@ -21,9 +21,9 @@ void TransformManager::create()
 
 void TransformManager::destroy()
 {
-	for (int i = 0; i < transformList.size(); ++i)
+	for (unsigned int i = 0; i < transformList.size(); ++i)
 		delete transformList[i];
 
-	for (int i = 0; i < transformUpdateList.size(); ++i)
+	for (unsigned int i = 0; i < transformUpdateList.size(); ++i)
 		delete transformUpdateList[i];
 }

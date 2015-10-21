@@ -18,7 +18,7 @@ void Game::init(const char *title, const int width, const int height, int flags)
 
 bool Game::handleEvents()
 {
-	return true;
+	return InputHandler::Instance()->update();
 }
 
 void Game::update(float t, const float dt)

@@ -2,6 +2,7 @@
 
 #include "WindowContext.h"
 #include "GameObject.h"
+#include "InputHandler.h"
 
 class Game
 {

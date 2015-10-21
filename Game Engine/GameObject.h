@@ -11,7 +11,7 @@ public:
 	GameObject();
 	~GameObject();
 
-	void create(int count, string type);
+	void create(int count);
 	void destroy();
 
 private:
