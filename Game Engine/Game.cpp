@@ -11,9 +11,9 @@ Game::~Game()
 void Game::init(const char *title, const int width, const int height, int flags)
 {
 	windowContext.init(title, width, height, flags);
-	gameObjectCount = 0;
+	gameObjectCount = 1;
 
-	testObject.create(gameObjectCount++);
+
 }
 
 bool Game::handleEvents()

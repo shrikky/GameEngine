@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Model.h"
+
 #include <vector>
 #include <string>
 
@@ -11,11 +13,12 @@ public:
 	GameObject();
 	~GameObject();
 
-	void create(int count);
+	void create(int count, string type);
 	void destroy();
 
 private:
 	int id;
+	Model model;
 };
 
 

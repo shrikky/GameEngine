@@ -4,6 +4,11 @@
 #include "GameObject.h"
 #include "InputHandler.h"
 
+#include "Shader.h"
+#include "Model.h"
+#include "Transform.h"
+#include "Camera.h"
+
 class Game
 {
 public:
@@ -20,7 +25,8 @@ public:
 private:
 	WindowContext windowContext;
 	int gameObjectCount;
-	GameObject testObject;
+	Shader* shaderList;
+	Model* modelList;
+	Transform* transformList;
+	Camera* cameraList;
 };
-
-typedef Game TheGame;
