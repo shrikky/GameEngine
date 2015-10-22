@@ -1,7 +1,6 @@
 #pragma once
 
 #include "WindowContext.h"
-#include "GameObject.h"
 #include "InputHandler.h"
 
 #include "Shader.h"

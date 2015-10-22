@@ -43,8 +43,12 @@ public:
 	GLfloat Zoom;
 
 	// Constructor with vectors
-	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
+	void Camera_Init(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH)
 	{
+		this->Front = glm::vec3(0.0f, 0.0f, -1.0f);
+		this->MovementSpeed = SPEED;
+		this->MouseSensitivity = SENSITIVTY;
+		this->Zoom = ZOOM;
 		this->Position = position;
 		this->WorldUp = up;
 		this->Yaw = yaw;
@@ -52,8 +56,12 @@ public:
 		this->updateCameraVectors();
 	}
 	// Constructor with scalar values
-	Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
+	void Camera_Init(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) 
 	{
+		this->Front = (glm::vec3(0.0f, 0.0f, -1.0f)); 
+		this->MovementSpeed = (SPEED);
+		this->MouseSensitivity = (SENSITIVTY);
+		this->Zoom = (ZOOM);
 		this->Position = glm::vec3(posX, posY, posZ);
 		this->WorldUp = glm::vec3(upX, upY, upZ);
 		this->Yaw = yaw;
@@ -114,6 +122,7 @@ public:
 			this->Zoom = 45.0f;
 	}
 
+	
 private:
 	// Calculates the front vector from the Camera's (updated) Eular Angles
 	void updateCameraVectors()

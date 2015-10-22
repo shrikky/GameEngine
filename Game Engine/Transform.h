@@ -11,6 +11,9 @@ public:
 	~Transform();
 
 	void create();
+	void update();
+
+	glm::mat4 returnModelMatrix() { return modelMatrix; }
 
 private:
 	glm::vec3 position;
