@@ -2,7 +2,6 @@
 
 #include "WindowContext.h"
 #include "InputHandler.h"
-
 #include "Shader.h"
 #include "Model.h"
 #include "Transform.h"

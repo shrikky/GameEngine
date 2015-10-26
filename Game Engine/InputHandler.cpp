@@ -95,9 +95,9 @@ void InputHandler::initialiseJoysticks()
 
 void InputHandler::reset()
 {
-	m_mouseButtonStates[LEFT] = false;
-	m_mouseButtonStates[RIGHT] = false;
-	m_mouseButtonStates[MIDDLE] = false;
+	m_mouseButtonStates[0] = false;
+	m_mouseButtonStates[1] = false;
+	m_mouseButtonStates[2] = false;
 }
 
 bool InputHandler::isKeyDown(SDL_Scancode key) const
@@ -235,17 +235,17 @@ void InputHandler::onMouseButtonDown(SDL_Event &event)
 {
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
-		m_mouseButtonStates[LEFT] = true;
+		m_mouseButtonStates[0] = true;
 	}
 
 	if (event.button.button == SDL_BUTTON_MIDDLE)
 	{
-		m_mouseButtonStates[MIDDLE] = true;
+		m_mouseButtonStates[1] = true;
 	}
 
 	if (event.button.button == SDL_BUTTON_RIGHT)
 	{
-		m_mouseButtonStates[RIGHT] = true;
+		m_mouseButtonStates[2] = true;
 	}
 }
 
@@ -253,17 +253,17 @@ void InputHandler::onMouseButtonUp(SDL_Event &event)
 {
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
-		m_mouseButtonStates[LEFT] = false;
+		m_mouseButtonStates[0] = false;
 	}
 
 	if (event.button.button == SDL_BUTTON_MIDDLE)
 	{
-		m_mouseButtonStates[MIDDLE] = false;
+		m_mouseButtonStates[1] = false;
 	}
 
 	if (event.button.button == SDL_BUTTON_RIGHT)
 	{
-		m_mouseButtonStates[RIGHT] = false;
+		m_mouseButtonStates[2] = false;
 	}
 }
 

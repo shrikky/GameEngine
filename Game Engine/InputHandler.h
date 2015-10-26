@@ -7,13 +7,6 @@
 #include <vector>
 #include <utility>
 
-enum mouse_buttons
-{
-	LEFT = 0,
-	MIDDLE = 1,
-	RIGHT = 2
-};
-
 class InputHandler
 {
 public:
