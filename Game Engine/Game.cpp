@@ -23,6 +23,7 @@ void Game::init(const char *title, const int width, const int height, int flags)
 
 	transformList = new Transform;
 	transformList->create();
+	transformList->translate(glm::vec3(0.0f, -7.5f, 0.0f));
 
 	cameraList = new Camera;
 	cameraList->Camera_Init();
@@ -41,7 +42,7 @@ void Game::update(float t, const float dt)
 
 void Game::renderUpdate(const float dt)
 {
-	
+	transformList->update();
 }
 
 void Game::render()

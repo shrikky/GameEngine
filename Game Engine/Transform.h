@@ -13,6 +13,7 @@ public:
 	void create();
 	void update();
 
+	void translate(glm::vec3& pos);
 	glm::mat4 returnModelMatrix() { return modelMatrix; }
 
 private:

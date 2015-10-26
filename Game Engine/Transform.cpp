@@ -23,4 +23,11 @@ void Transform::update()
 	modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMatrix = glm::scale(modelMatrix, scale);
+
+	position = glm::vec3(0);
+}
+
+void Transform::translate(glm::vec3& pos)
+{
+	this->position += pos;
 }
