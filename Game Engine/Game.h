@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "Rigidbody.h"
 
 class Game
 {
@@ -27,4 +28,5 @@ private:
 	Model* modelList;
 	Transform* transformList;
 	Camera* cameraList;
+	Rigidbody* rigidBodyList;
 };
