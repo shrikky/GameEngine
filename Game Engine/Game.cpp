@@ -19,11 +19,12 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	shaderList->Shader_Init("shaders/simple_vert.glsl", "shaders/simple_frag.glsl");
 
 	modelList = new Model;
-	modelList->Model_Init("objects/cube/cube.obj");
+	modelList->Model_Init("objects/cube/crate.obj");
 
 	transformList = new Transform;
 	transformList->create();
-	transformList->translate(glm::vec3(0.0f, 0.0f, 0.0f));
+	TransformManager::Instance()->transformList.push_back(transformList);
+	//transformList->translate(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	rigidBodyList = new Rigidbody;
 	rigidBodyList->Rigidbody_Init();
@@ -52,9 +53,8 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shaderList->Use();
-	glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "model"), 1, GL_FALSE, glm::value_ptr(transformList->returnModelMatrix()));
-	glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "view"), 1, GL_FALSE, glm::value_ptr(cameraList->GetViewMatrix()));
-	glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "projection"), 1, GL_FALSE, glm::value_ptr(glm::perspective(60.0f, 4.0f / 3.0f, 0.1f, 100.0f)));
+	transformList->render(shaderList);
+	cameraList->render(shaderList);
 	modelList->Draw(*shaderList);
 	windowContext.swapBuffers();
 }

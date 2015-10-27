@@ -5,15 +5,21 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "Transform.h"
+#include "TransformManager.h"
 
 class Rigidbody
 {
 public:
+	void Rigidbody_Init();
+	Rigidbody();
+	~Rigidbody();
+
 	struct State {
 		//primary states
-		glm::vec3 position;
+		GLint id = 0;
+		Transform* transform = TransformManager::Instance()->transformList[id];
 		glm::vec3 momentum;
-		glm::quat orientation;
 		glm::vec3 angularMomentum;
 
 		// secondary states
@@ -32,28 +38,23 @@ public:
 		void recalculate() {
 			velocity = momentum * inverseMass;
 			angularVelocity = angularMomentum * inverseInertiaTensor;
-			glm::normalize(orientation);
-			spin = 0.5f * glm::quat(0, angularVelocity.x, angularVelocity.y, angularVelocity.z) * orientation;
+			glm::normalize(transform->rotation);
+			spin = 0.5f * glm::quat(0, angularVelocity.x, angularVelocity.y, angularVelocity.z) * transform->rotation;
 			glm::mat4 translation;
-			glm::translate(translation, position);
-			bodyToWorld = translation * glm::mat4_cast(orientation);
+			glm::translate(translation, transform->position);
+			bodyToWorld = translation * glm::mat4_cast(transform->rotation);
 			worldToBody = glm::inverse(bodyToWorld);
 		}
 	};
 
+	State previous;
+	State current;
 	void update(GLfloat t, GLfloat dt) {
 		previous = current;
 		integrate(current, t, dt);
+		
 	}
-
-	void Rigidbody_Init();
-	Rigidbody();
-	~Rigidbody();
-
 private:
-	State previous;
-	State current;
-
 	struct Derivative
 	{
 		glm::vec3 velocity;
@@ -64,9 +65,9 @@ private:
 
 	static State interpolate(const State &a, const State &b, GLfloat alpha) {
 		State state = b;
-		state.position = a.position*(1 - alpha) + b.position*alpha;
+		state.transform->position = a.transform->position*(1 - alpha) + b.transform->position*alpha;
 		state.momentum = a.momentum*(1 - alpha) + b.momentum*alpha;
-		state.orientation = glm::slerp(a.orientation, b.orientation, alpha);
+		state.transform->rotation = glm::slerp(a.transform->rotation, b.transform->rotation, alpha);
 		state.angularMomentum = a.angularMomentum*(1 - alpha) + b.angularMomentum*alpha;
 		state.recalculate();
 		return state;
@@ -81,9 +82,9 @@ private:
 	}
 
 	static Derivative evaluate(State state, GLfloat t, GLfloat dt, const Derivative &derivative) {
-		state.position += derivative.velocity * dt;
+		state.transform->position += derivative.velocity * dt;
 		state.momentum += derivative.force * dt;
-		state.orientation += derivative.spin * dt;
+		state.transform->rotation += derivative.spin * dt;
 		state.angularMomentum += derivative.torque * dt;
 		state.recalculate();
 
@@ -100,9 +101,9 @@ private:
 		Derivative c = evaluate(state, t, dt*0.5f, b);
 		Derivative d = evaluate(state, t, dt, c);
 
-		state.position += 1.0f / 6.0f * dt * (a.velocity + 2.0f*(b.velocity + c.velocity) + d.velocity);
+		state.transform->position += 1.0f / 6.0f * dt * (a.velocity + 2.0f*(b.velocity + c.velocity) + d.velocity);
 		state.momentum += 1.0f / 6.0f * dt * (a.force + 2.0f*(b.force + c.force) + d.force);
-		state.orientation += 1.0f / 6.0f * dt * (a.spin + 2.0f*(b.spin + c.spin) + d.spin);
+		state.transform->rotation += 1.0f / 6.0f * dt * (a.spin + 2.0f*(b.spin + c.spin) + d.spin);
 		state.angularMomentum += 1.0f / 6.0f * dt * (a.torque + 2.0f*(b.torque + c.torque) + d.torque);
 
 		state.recalculate();
@@ -112,7 +113,7 @@ private:
 
 		// attract towards origin
 
-		force = -10.0f * state.position;
+		force = -10.0f * state.transform->position;
 
 		// sine force to add some randomness to the motion
 

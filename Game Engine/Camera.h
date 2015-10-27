@@ -8,6 +8,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Shader.h"
+
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
 	FORWARD,
@@ -34,6 +36,7 @@ public:
 	glm::vec3 Up;
 	glm::vec3 Right;
 	glm::vec3 WorldUp;
+	glm::mat4 ProjectionMatrix;
 	// Eular Angles
 	GLfloat Yaw;
 	GLfloat Pitch;
@@ -54,6 +57,7 @@ public:
 		this->Yaw = yaw;
 		this->Pitch = pitch;
 		this->updateCameraVectors();
+		this->ProjectionMatrix = getProjectionMatrix();
 	}
 	// Constructor with scalar values
 	void Camera_Init(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) 
@@ -67,6 +71,11 @@ public:
 		this->Yaw = yaw;
 		this->Pitch = pitch;
 		this->updateCameraVectors();
+		this->ProjectionMatrix = getProjectionMatrix();
+	}
+
+	glm::mat4 getProjectionMatrix() {
+		return glm::perspective(60.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	}
 
 	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
@@ -120,6 +129,11 @@ public:
 			this->Zoom = 1.0f;
 		if (this->Zoom >= 45.0f)
 			this->Zoom = 45.0f;
+	}
+
+	void render(Shader* shaderList) {
+		glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "view"), 1, GL_FALSE, glm::value_ptr(this->GetViewMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "projection"), 1, GL_FALSE, glm::value_ptr(this->ProjectionMatrix));
 	}
 
 	

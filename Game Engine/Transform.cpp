@@ -11,7 +11,8 @@ Transform::~Transform()
 void Transform::create()
 {
 	this->position = glm::vec3(0.0f);
-	this->rotation = glm::vec3(0.0f);
+	this->rotation.x = this->rotation.y = this->rotation.z = 0.0f;
+	this->rotation.w = 1.0f;
 	this->scale = glm::vec3(1.0f);
 	this->modelMatrix = glm::mat4(1.0f);
 }
@@ -30,4 +31,8 @@ void Transform::update()
 void Transform::translate(glm::vec3& pos)
 {
 	this->position += pos;
+}
+
+void Transform::render(Shader* shaderList) {
+	glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "model"), 1, GL_FALSE, glm::value_ptr(this->returnModelMatrix()));
 }

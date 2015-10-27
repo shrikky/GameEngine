@@ -23,13 +23,13 @@ public:
 
 	void create();
 	void destroy();
-
+	vector<Transform*> transformList;
 private:
 
 	TransformManager();
 	~TransformManager();
 	static TransformManager* s_pInstance;
-	vector<Transform*> transformList;
+	
 	vector<Transform*> transformUpdateList;
 };
 
