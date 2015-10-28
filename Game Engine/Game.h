@@ -4,9 +4,12 @@
 #include "InputHandler.h"
 #include "Shader.h"
 #include "Model.h"
-#include "Transform.h"
 #include "Camera.h"
+#include "Transform.h"
 #include "Rigidbody.h"
+#include "TransformManager.h"
+#include "RigidbodyManager.h"
+#include <vector>
 
 class Game
 {
@@ -25,8 +28,6 @@ private:
 	WindowContext windowContext;
 	int gameObjectCount;
 	Shader* shaderList;
-	Model* modelList;
-	Transform* transformList;
+	std::vector<Model*> modelList;
 	Camera* cameraList;
-	Rigidbody* rigidBodyList;
 };

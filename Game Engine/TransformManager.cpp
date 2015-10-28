@@ -10,10 +10,10 @@ TransformManager::~TransformManager()
 {
 }
 
-void TransformManager::create()
+void TransformManager::create(int id)
 {
 	Transform *transform = new Transform;
-	transform->create();
+	transform->create(id);
 
 	transformList.push_back(transform);
 	transformUpdateList.push_back(transform);

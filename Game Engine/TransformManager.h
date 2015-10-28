@@ -21,7 +21,7 @@ public:
 		return s_pInstance;
 	}
 
-	void create();
+	void create(int id);
 	void destroy();
 	vector<Transform*> transformList;
 private:

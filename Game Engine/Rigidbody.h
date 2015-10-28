@@ -5,20 +5,19 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include "Transform.h"
 #include "TransformManager.h"
 
 class Rigidbody
 {
 public:
-	void Rigidbody_Init();
+	void Rigidbody_Init(int id);
 	Rigidbody();
 	~Rigidbody();
 
 	struct State {
 		//primary states
-		GLint id = 0;
-		Transform* transform = TransformManager::Instance()->transformList[id];
+		GLint id;
+		Transform* transform;
 		glm::vec3 momentum;
 		glm::vec3 angularMomentum;
 
@@ -51,8 +50,8 @@ public:
 	State current;
 	void update(GLfloat t, GLfloat dt) {
 		previous = current;
+		//current = interpolate(previous, current, 1.0f);
 		integrate(current, t, dt);
-		
 	}
 private:
 	struct Derivative

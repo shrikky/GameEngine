@@ -9,10 +9,11 @@
 class Transform
 {	
 public:
+	int id;
 	Transform();
 	~Transform();
 
-	void create();
+	void create(int id);
 	void update();
 	void render(Shader*);
 	void translate(glm::vec3& pos);

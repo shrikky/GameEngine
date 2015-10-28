@@ -9,7 +9,9 @@ Rigidbody::~Rigidbody()
 {
 }
 
-void Rigidbody::Rigidbody_Init() {
+void Rigidbody::Rigidbody_Init(int id) {
+	current.id = 0;
+	current.transform = TransformManager::Instance()->transformList[0];
 	current.size = 1;
 	current.mass = 1;
 	current.inverseMass = 1.0f / current.mass;
