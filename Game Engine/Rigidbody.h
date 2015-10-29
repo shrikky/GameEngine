@@ -48,7 +48,8 @@ public:
 
 	State previous;
 	State current;
-	void update(GLfloat t, GLfloat dt) {
+	void update(float t, float dt) {
+		
 		previous = current;
 		if (current.momentum.z != 0.0f) {
 			integrate(current, t, dt);

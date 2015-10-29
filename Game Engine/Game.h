@@ -10,7 +10,6 @@
 #include "TransformManager.h"
 #include "RigidbodyManager.h"
 #include <vector>
-
 class Game
 {
 public:
@@ -23,7 +22,6 @@ public:
 	void renderUpdate(const float dt);
 	void render();
 	void destroy();
-
 private:
 	WindowContext windowContext;
 	int gameObjectCount;
