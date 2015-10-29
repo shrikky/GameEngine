@@ -53,9 +53,8 @@ void Game::renderUpdate(const float dt)
 	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_W)) {
 		RigidbodyManager::Instance()->rigidbodyList[0]->addMomentum(glm::vec3(0.0f, 0.0f, -0.1f));
 	}
-	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
-		TransformManager::Instance()->transformList[i]->update();
-	}
+	
+		TransformManager::Instance()->updateList();
 }
 
 void Game::render()

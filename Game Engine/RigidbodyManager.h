@@ -1,7 +1,13 @@
 #include <vector>
 
 #include "Rigidbody.h"
-#include "TaskManager.h"
+#include<thread>
+#include <string>
+#include <fstream>
+#include <mutex>
+#include <condition_variable>
+#include<future>
+#include <queue>
 using namespace std;
 
 struct sharedUpdateData
@@ -13,7 +19,12 @@ class RigidbodyManager {
 public:
 	RigidbodyManager();
 	~RigidbodyManager();
-	
+	queue<packaged_task<int()>> task_q;
+	mutex mu;
+	condition_variable cond;
+	bool processQuit = false;
+	bool notified = false;
+
 	static RigidbodyManager* Instance()
 	{
 		if (s_pInstance == 0)
@@ -27,14 +38,15 @@ public:
 
 	void create(int id);
 	void destroy();
-	static void update(void* in, void* out);
+	int update(void* in, void* out);
+	void WaitOnTasks();
+	thread workers[3];
 	void updateList(float t, float dt);
 	
-	static TaskManager _taskManager;
-	static vector<Rigidbody*> rigidbodyList;
+	vector<Rigidbody*> rigidbodyList;
 private:
 	static RigidbodyManager* s_pInstance;
 	vector<Rigidbody*> rigidbodyUpdateList;
 
-	static sharedUpdateData updateData;
+	sharedUpdateData updateData;
 };
