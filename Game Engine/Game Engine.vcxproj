@@ -78,6 +78,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="RigidbodyManager.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformManager.cpp" />
     <ClCompile Include="WindowContext.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="RigidbodyManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TaskManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformManager.h" />
     <ClInclude Include="WindowContext.h" />

@@ -1,5 +1,4 @@
 #include "Game.h"
-
 Game::Game()
 {
 }
@@ -45,9 +44,7 @@ bool Game::handleEvents()
 
 void Game::update(float t, const float dt)
 {
-	for (int i = 0; i < RigidbodyManager::Instance()->rigidbodyList.size(); i++) {
- 		RigidbodyManager::Instance()->rigidbodyList[i]->update(t, dt);
-	}
+	RigidbodyManager::Instance()->updateList(t, dt);
 	//rigidBodyList->update(t, dt);
 }
 
