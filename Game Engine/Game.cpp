@@ -53,7 +53,9 @@ void Game::update(float t, const float dt)
 
 void Game::renderUpdate(const float dt)
 {
-	//replace 0 with id
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_W)) {
+		RigidbodyManager::Instance()->rigidbodyList[0]->addMomentum(glm::vec3(0.0f, 0.0f, -0.1f));
+	}
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
 		TransformManager::Instance()->transformList[i]->update();
 	}
@@ -64,7 +66,6 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shaderList->Use();
 	cameraList->render(shaderList);
-	vector <Transform*> tempList = TransformManager::Instance()->transformList;
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
 		TransformManager::Instance()->transformList[i]->render(shaderList);
 		modelList[i]->Draw(*shaderList);

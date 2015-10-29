@@ -32,6 +32,10 @@ void Transform::translate(glm::vec3& pos)
 	this->position += pos;
 }
 
+void Transform::resetRotation() {
+	rotation = glm::quat(0, 0, 0, 1);
+}
+
 void Transform::render(Shader* shaderList) {
 	glUniformMatrix4fv(glGetUniformLocation(shaderList->Program, "model"), 1, GL_FALSE, glm::value_ptr(this->returnModelMatrix()));
 }

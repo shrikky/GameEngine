@@ -50,8 +50,13 @@ public:
 	State current;
 	void update(GLfloat t, GLfloat dt) {
 		previous = current;
-		//current = interpolate(previous, current, 1.0f);
-		integrate(current, t, dt);
+		if (current.momentum.z != 0.0f) {
+			integrate(current, t, dt);
+		}
+	}
+
+	void addMomentum(glm::vec3 momentum) {
+		current.momentum = momentum;
 	}
 private:
 	struct Derivative
@@ -120,15 +125,19 @@ private:
 		force.y += 11 * glm::sin(t*0.5f + 0.4f);
 		force.z += 12 * glm::sin(t*0.7f + 0.9f);
 
+		force -= 10.0f * state.velocity;
+
 		// sine torque to get some spinning action
 
-		torque.x = 1.0f * glm::sin(t*0.9f + 0.5f);
-		torque.y = 1.1f * glm::sin(t*0.5f + 0.4f);
-		torque.z = 1.2f * glm::sin(t*0.7f + 0.9f);
+		// torque = glm::vec3(0.0f);
 
-		// damping torque so we dont spin too fast
+		//torque.x = 1.0f * glm::sin(t*0.9f + 0.5f);
+		//torque.y = 1.1f * glm::sin(t*0.5f + 0.4f);
+		//torque.z = 1.2f * glm::sin(t*0.7f + 0.9f);
 
-		torque -= 0.2f * state.angularVelocity;
+		//// damping torque so we dont spin too fast
+
+		//torque -= 20.f * state.angularVelocity;
 	}
 };
 

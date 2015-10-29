@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-	const float dt = 1.0f;
+	const float dt = 0.01f;
 	float t = 0.0f;
 	float accumulator = 0.0f;
 	float current_time = 0.0f;

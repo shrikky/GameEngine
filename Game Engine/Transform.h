@@ -17,6 +17,7 @@ public:
 	void update();
 	void render(Shader*);
 	void translate(glm::vec3& pos);
+	void resetRotation();
 	glm::mat4 returnModelMatrix() { return modelMatrix; }
 	
 	glm::vec3 position;

@@ -1,16 +1,7 @@
-﻿Build started 10/28/2015 4:23:40 PM.
+﻿Build started 10/29/2015 11:54:05 AM.
      1>Project "D:\GameEngine\Game Engine\Game Engine.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (LearnOpenGL.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
-         Game.cpp
-     1>d:\gameengine\game engine\shader.h(62): warning C4101: 'success' : unreferenced local variable
-     1>d:\gameengine\game engine\shader.h(63): warning C4101: 'infoLog' : unreferenced local variable
-     1>d:\gameengine\game engine\game.cpp(48): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\gameengine\game engine\game.cpp(57): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\gameengine\game engine\game.cpp(68): warning C4018: '<' : signed/unsigned mismatch
-         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\GameEngine\Debug\Game Engine.exe" /INCREMENTAL /NOLOGO opengl32.lib glew32.lib SDL2.lib SDL2main.lib assimp.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\GameEngine\Debug\Game Engine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\GameEngine\Debug\Game Engine.lib" /MACHINE:X86 Debug\Game.obj
          Debug\InputHandler.obj
          Debug\main.obj
@@ -19,6 +10,7 @@
          Debug\Transform.obj
          Debug\TransformManager.obj
          Debug\WindowContext.obj
+         LINK : D:\GameEngine\Debug\Game Engine.exe not found or not built by the last incremental link; performing full link
      1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
      1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'D:\GameEngine\Debug\vc120.pdb'; linking object as if no debug info
      1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'D:\GameEngine\Debug\vc120.pdb'; linking object as if no debug info
@@ -29,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.23
+Time Elapsed 00:00:00.30
