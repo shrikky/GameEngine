@@ -3,16 +3,26 @@ RigidbodyManager* RigidbodyManager::s_pInstance = 0;
 
 RigidbodyManager::RigidbodyManager()
 {
-	workers[0] = thread(&RigidbodyManager::WaitOnTasks, this);
-	workers[1] = thread(&RigidbodyManager::WaitOnTasks, this);
-	workers[2] = thread(&RigidbodyManager::WaitOnTasks, this);
+	workers[0] = thread(&RigidbodyManager::WaitOnTasks, this, 0);
+	threadStatus[0] = true; // running = true
+	workers[1] = thread(&RigidbodyManager::WaitOnTasks, this, 1);
+	threadStatus[1] = true; // running = true
+	workers[2] = thread(&RigidbodyManager::WaitOnTasks, this, 2);
+	threadStatus[2] = true; // running = true
 }
 
 RigidbodyManager::~RigidbodyManager()
 {
+	processQuit = true;
 
+	for (int i = 0; i < 3; i++)
+	{
+		while (threadStatus[i] == true);
+		if (workers[i].joinable())
+			workers[i].join();
+	}
 }
-void RigidbodyManager::WaitOnTasks()
+void RigidbodyManager::WaitOnTasks(int ThreadId)
 {
 
 	packaged_task<int()> task;
@@ -30,6 +40,7 @@ void RigidbodyManager::WaitOnTasks()
 		if (task_q.empty())
 			processQuit = true;
 	}
+	threadStatus[ThreadId] = false;
 }
 
 int RigidbodyManager::update(void* in, void* out)

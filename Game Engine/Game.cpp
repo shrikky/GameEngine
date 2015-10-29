@@ -82,7 +82,6 @@ void Game::render()
 
 void Game::destroy()
 {
-
 	delete[] shaderRenderList;
 	delete shaderComputeList;
 	delete cameraList;

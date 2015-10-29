@@ -39,8 +39,9 @@ public:
 	void create(int id);
 	void destroy();
 	int update(void* in, void* out);
-	void WaitOnTasks();
+	void WaitOnTasks(int );
 	thread workers[3];
+	bool threadStatus[3];
 	void updateList(float t, float dt);
 	
 	vector<Rigidbody*> rigidbodyList;

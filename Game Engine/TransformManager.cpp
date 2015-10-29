@@ -4,15 +4,26 @@ TransformManager* TransformManager::s_pInstance = 0;
 
 TransformManager::TransformManager()
 {
-	workers[0] = thread(&TransformManager::WaitOnTasks, this);
-	workers[1] = thread(&TransformManager::WaitOnTasks, this);
-	workers[2] = thread(&TransformManager::WaitOnTasks, this);
+	workers[0] = thread(&TransformManager::WaitOnTasks, this, 0);
+	threadStatus[0] = true; // running = true
+	workers[1] = thread(&TransformManager::WaitOnTasks, this, 1);
+	threadStatus[1] = true; // running = true
+	workers[2] = thread(&TransformManager::WaitOnTasks, this, 2);
+	threadStatus[2] = true; // running = true
 }
 
 TransformManager::~TransformManager()
 {
+	processQuit = true;
+
+	for (int i = 0; i < 3; i++)
+	{
+		while (threadStatus[i] == true);
+		if (workers[i].joinable())
+			workers[i].join();
+	}
 }
-void TransformManager::WaitOnTasks()
+void TransformManager::WaitOnTasks(int threadId)
 {
 
 	packaged_task<int()> task;
@@ -26,10 +37,9 @@ void TransformManager::WaitOnTasks()
 			task_q.pop();
 		}
 		task();
-
-		if (task_q.empty())
-			processQuit = true;
+		//cout << "transform manager update.\n";
 	}
+	threadStatus[threadId] = false;
 }
 
 void TransformManager::create(int id)
@@ -40,6 +50,7 @@ void TransformManager::create(int id)
 	transformList.push_back(transform);
 	transformUpdateList.push_back(transform);
 }
+
 int TransformManager::update(void* in)
 {
 	Transform* obj = (Transform*)in;

@@ -32,8 +32,9 @@ public:
 	bool processQuit = false;
 	bool notified = false;
 	int update(void* in);
-	void WaitOnTasks();
+	void WaitOnTasks(int);
 	thread workers[3];
+	bool threadStatus[3];
 	void create(int id);
 	void destroy();
 	void updateList();

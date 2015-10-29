@@ -49,11 +49,11 @@ public:
 	State previous;
 	State current;
 	void update(float t, float dt) {
-		
+		cout << "rigidbody update.\n";
 		previous = current;
-		if (current.momentum.z != 0.0f) {
+		//if (current.momentum.z != 0.0f) {
 			integrate(current, t, dt);
-		}
+		//}
 	}
 
 	void addMomentum(glm::vec3 momentum) {
@@ -105,6 +105,8 @@ private:
 		Derivative b = evaluate(state, t, dt*0.5f, a);
 		Derivative c = evaluate(state, t, dt*0.5f, b);
 		Derivative d = evaluate(state, t, dt, c);
+
+		std::cout << state.momentum.z << "\n";
 
 		state.transform->position += 1.0f / 6.0f * dt * (a.velocity + 2.0f*(b.velocity + c.velocity) + d.velocity);
 		state.momentum += 1.0f / 6.0f * dt * (a.force + 2.0f*(b.force + c.force) + d.force);
