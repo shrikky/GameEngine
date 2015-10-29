@@ -3,7 +3,13 @@
 #include "Transform.h"
 
 #include <vector>
-
+#include<thread>
+#include <string>
+#include <fstream>
+#include <mutex>
+#include <condition_variable>
+#include<future>
+#include <queue>
 using namespace std;
 
 class TransformManager
@@ -20,16 +26,24 @@ public:
 
 		return s_pInstance;
 	}
-
-	void create();
+	queue<packaged_task<int()>> task_q;
+	mutex mu;
+	condition_variable cond;
+	bool processQuit = false;
+	bool notified = false;
+	int update(void* in);
+	void WaitOnTasks();
+	thread workers[3];
+	void create(int id);
 	void destroy();
-
+	void updateList();
+	vector<Transform*> transformList;
 private:
 
 	TransformManager();
 	~TransformManager();
 	static TransformManager* s_pInstance;
-	vector<Transform*> transformList;
+	
 	vector<Transform*> transformUpdateList;
 };
 

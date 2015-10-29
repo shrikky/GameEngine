@@ -4,10 +4,12 @@
 #include "InputHandler.h"
 #include "Shader.h"
 #include "Model.h"
-#include "Transform.h"
 #include "Camera.h"
-#include "ParticleSystem.h"
-
+#include "Transform.h"
+#include "Rigidbody.h"
+#include "TransformManager.h"
+#include "RigidbodyManager.h"
+#include <vector>
 class Game
 {
 public:
@@ -20,14 +22,10 @@ public:
 	void renderUpdate(const float dt);
 	void render();
 	void destroy();
-
 private:
 	WindowContext windowContext;
 	int gameObjectCount;
-	Shader* shaderRenderList;
-	Shader* shaderComputeList;
-	Model* modelList;
-	Transform* transformList;
+	Shader* shaderList;
+	std::vector<Model*> modelList;
 	Camera* cameraList;
-	ParticleSystem* particleSystem;
 };

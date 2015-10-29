@@ -36,7 +36,10 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidbodyManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +71,10 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidbodyManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,15 +83,6 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="shaders\simple_vert.glsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="shaders\particle_comp.glsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="shaders\particle_frag.glsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="shaders\particle_vert.glsl">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
