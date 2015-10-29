@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 	Game game;
 
 	std::cout << "game init attempt...\n";
-	game.init("OpenGL", 1024, 768, SDL_WINDOW_OPENGL);
+	game.init("OpenGL", 1920, 1080, SDL_WINDOW_OPENGL);
 	
 	std::cout << "game init success!\n";
 	while (quit_flag)

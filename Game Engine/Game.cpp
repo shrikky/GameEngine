@@ -12,10 +12,16 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	windowContext.init(title, width, height, flags);
 	gameObjectCount = 0;
 
-	shaderList = new Shader;
+	shaderRenderList = new Shader[2];
 
+	shaderRenderList[0].Shader_RenderInit("shaders/simple_vert.glsl", "shaders/simple_frag.glsl");
+	shaderRenderList[1].Shader_RenderInit("shaders/particle_vert.glsl", "shaders/particle_frag.glsl");
+	
+	shaderComputeList = new Shader;
+	shaderComputeList[0].Shader_ComputeInit("shaders/particle_comp.glsl");
 
-	shaderList->Shader_Init("shaders/simple_vert.glsl", "shaders/simple_frag.glsl");
+	particleSystem = new ParticleSystem;
+	particleSystem->init();
 
 	Model* model = new Model;
 	modelList.push_back(model);
@@ -45,33 +51,40 @@ bool Game::handleEvents()
 void Game::update(float t, const float dt)
 {
 	RigidbodyManager::Instance()->updateList(t, dt);
-	//rigidBodyList->update(t, dt);
 }
 
 void Game::renderUpdate(const float dt)
 {
-	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_W)) {
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_W)) 
+	{
 		RigidbodyManager::Instance()->rigidbodyList[0]->addMomentum(glm::vec3(0.0f, 0.0f, -0.1f));
 	}
 	
-		TransformManager::Instance()->updateList();
+	TransformManager::Instance()->updateList();
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	shaderList->Use();
-	cameraList->render(shaderList);
+
+	shaderRenderList[1].Use();
+	cameraList->render(&shaderRenderList[1]);
+	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
+
+	shaderRenderList[0].Use();
+	cameraList->render(&shaderRenderList[0]);
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
-		TransformManager::Instance()->transformList[i]->render(shaderList);
-		modelList[i]->Draw(*shaderList);
+		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
+		modelList[i]->Draw(shaderRenderList[0]);
 	}
 	windowContext.swapBuffers();
 }
 
 void Game::destroy()
 {
-	delete shaderList;
+
+	delete[] shaderRenderList;
+	delete shaderComputeList;
 	delete cameraList;
 	windowContext.destroy();
 }

@@ -9,6 +9,8 @@
 #include "Rigidbody.h"
 #include "TransformManager.h"
 #include "RigidbodyManager.h"
+#include "ParticleSystem.h"
+
 #include <vector>
 class Game
 {
@@ -25,7 +27,9 @@ public:
 private:
 	WindowContext windowContext;
 	int gameObjectCount;
-	Shader* shaderList;
+	Shader* shaderRenderList;
+	Shader* shaderComputeList;
+	ParticleSystem *particleSystem;
 	std::vector<Model*> modelList;
 	Camera* cameraList;
 };

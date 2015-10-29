@@ -37,7 +37,7 @@ void WindowContext::init(const char *title, int width, int height, int flags)
 	// Print opengl version
 	printf("Using opengl version %s.\n", glGetString(GL_VERSION));
 	printf("Using glsl version %s.\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 }
 
