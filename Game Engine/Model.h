@@ -18,7 +18,6 @@ using namespace std;
 
 #include "Mesh.h"
 
-
 class Model
 {
 public:

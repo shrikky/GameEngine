@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "ParticleSystem.h"
 
 class Game
 {
@@ -23,8 +24,10 @@ public:
 private:
 	WindowContext windowContext;
 	int gameObjectCount;
-	Shader* shaderList;
+	Shader* shaderRenderList;
+	Shader* shaderComputeList;
 	Model* modelList;
 	Transform* transformList;
 	Camera* cameraList;
+	ParticleSystem* particleSystem;
 };

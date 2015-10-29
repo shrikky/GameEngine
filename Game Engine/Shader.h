@@ -13,7 +13,7 @@ class Shader
 public:
 	GLuint Program;
 	// Constructor generates the shader on the fly
-	void Shader_Init(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = nullptr)
+	void Shader_RenderInit(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = nullptr)
 	{
 		// 1. Retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -94,8 +94,43 @@ public:
 		glDeleteShader(fragment);
 		if (geometryPath != nullptr)
 			glDeleteShader(geometry);
-
 	}
+
+	void Shader_ComputeInit(const GLchar* computePath)
+	{
+		std::string computeCode;
+		std::ifstream cShaderFile;
+		cShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		try
+		{
+			// Open files
+			cShaderFile.open(computePath);
+			std::stringstream vShaderStream;
+			vShaderStream << cShaderFile.rdbuf();
+			cShaderFile.close();
+			computeCode = vShaderStream.str();
+		}
+		catch (std::ifstream::failure e)
+		{
+			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+		}
+		const GLchar* cShaderCode = computeCode.c_str();
+		GLuint compute;
+		GLint success;
+		GLchar infoLog[512];
+		// Vertex Shader
+		compute = glCreateShader(GL_COMPUTE_SHADER);
+		glShaderSource(compute, 1, &cShaderCode, NULL);
+		glCompileShader(compute);
+		checkCompileErrors(compute, "COMPUTE");
+		this->Program = glCreateProgram();
+		glAttachShader(this->Program, compute);
+		glLinkProgram(this->Program);
+		checkCompileErrors(this->Program, "PROGRAM");
+		// Delete the shaders as they're linked into our program now and no longer necessery
+		glDeleteShader(compute);
+	}
+
 	// Uses the current shader
 	void Use() { glUseProgram(this->Program); }
 

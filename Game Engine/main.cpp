@@ -43,7 +43,6 @@ int main(int argc, char* argv[])
 		game.render();
 	}
 
-
 	std::cout << "game closing...\n";
 	game.destroy();
 

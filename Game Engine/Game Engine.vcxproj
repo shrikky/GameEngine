@@ -76,6 +76,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformManager.cpp" />
     <ClCompile Include="WindowContext.cpp" />
@@ -86,12 +87,16 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformManager.h" />
     <ClInclude Include="WindowContext.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\particle_comp.glsl" />
+    <None Include="shaders\particle_frag.glsl" />
+    <None Include="shaders\particle_vert.glsl" />
     <None Include="shaders\simple_frag.glsl" />
     <None Include="shaders\simple_vert.glsl" />
   </ItemGroup>
