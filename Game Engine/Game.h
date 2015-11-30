@@ -10,6 +10,8 @@
 #include "TransformManager.h"
 #include "RigidbodyManager.h"
 #include "ParticleSystem.h"
+#include "Arbiter.h"
+#include "Player.h"
 #include "SoundManager.h"
 
 #include <vector>
@@ -26,6 +28,9 @@ public:
 	void render();
 	void destroy();
 private:
+	Arbiter* _arbiter = new Arbiter();
+	bool isPressed;
+	AI* _ai = new AI();
 	WindowContext windowContext;
 	int gameObjectCount;
 	Shader* shaderRenderList;

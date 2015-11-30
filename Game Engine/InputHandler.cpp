@@ -106,6 +106,8 @@ bool InputHandler::isKeyDown(SDL_Scancode key) const
 	{
 		if (m_keystates[key] == 1)
 		{
+			m_keystates[key] == 0;
+
 			return true;
 		}
 		else
