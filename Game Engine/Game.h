@@ -11,6 +11,7 @@
 #include "RigidbodyManager.h"
 #include "ParticleSystem.h"
 #include "SoundManager.h"
+#include "LightManager.h"
 
 #include <vector>
 class Game
@@ -33,4 +34,6 @@ private:
 	ParticleSystem *particleSystem;
 	std::vector<Model*> modelList;
 	Camera* cameraList;
+	LightManager lightManager;
+
 };

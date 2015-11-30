@@ -45,6 +45,12 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	
 	TheSoundManager::Instance()->load("music/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
 	TheSoundManager::Instance()->playMusic("music1", -1);
+
+	lightManager.init(shaderRenderList[0].Program);
+	lightManager.addLight(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(3.0f, 3.0f, 3.0f), LightType::POINT);
+	lightManager.addLight(glm::vec3(1.0f, -1.0f, 0.0f), glm::vec3(5.0f, 0.0f, 0.0f), LightType::DIRECTIONAL);
+	lightManager.addLight(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 5.0f, 0.0f), LightType::DIRECTIONAL);
+	lightManager.addLight(glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 5.0f), LightType::DIRECTIONAL);
 }
 
 bool Game::handleEvents()
@@ -88,6 +94,7 @@ void Game::render()
 	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
 
 	shaderRenderList[0].Use();
+	lightManager.setLight();
 	cameraList[1].render(&shaderRenderList[0]);
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
 		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
