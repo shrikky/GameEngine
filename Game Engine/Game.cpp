@@ -1,4 +1,5 @@
 #include "Game.h"
+
 Game::Game()
 {
 }
@@ -42,6 +43,8 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	TransformManager::Instance()->create(1);
 	TransformManager::Instance()->transformList[1]->translate(glm::vec3(0.0f, -7.5f, 0.0f));
 	
+	TheSoundManager::Instance()->load("music/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
+	TheSoundManager::Instance()->playMusic("music1", -1);
 }
 
 bool Game::handleEvents()

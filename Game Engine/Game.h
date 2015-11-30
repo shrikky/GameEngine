@@ -10,6 +10,7 @@
 #include "TransformManager.h"
 #include "RigidbodyManager.h"
 #include "ParticleSystem.h"
+#include "SoundManager.h"
 
 #include <vector>
 class Game
