@@ -1,8 +1,13 @@
 #include <SDL/SDL.h>
+#include <Awesomium/WebCore.h>
+#include <Awesomium/BitmapSurface.h>
+#include <Awesomium/STLHelpers.h>
+#include <iostream>
 
 #include "Game.h"
 
-#include <iostream>
+#define URL "http://www.google.com"
+using namespace Awesomium;
 
 int main(int argc, char* argv[])
 {
@@ -13,6 +18,24 @@ int main(int argc, char* argv[])
 	bool quit_flag = 1;
 
 	Game game;
+	WebCore* web_core = WebCore::Initialize(WebConfig());
+	WebView* view = web_core->CreateWebView(1024, 768);
+	WebURL url(WSLit(URL));
+	view->LoadURL(url);
+
+	while (view->IsLoading())
+		web_core->Update();
+	Sleep(300);
+	web_core->Update();
+
+	BitmapSurface* surface = (BitmapSurface*)view->surface();
+
+	if (surface != 0) {
+		surface->SaveToJPEG(WSLit("./result.jpg"));
+	}
+
+	view->Destroy();
+	WebCore::Shutdown();
 
 	std::cout << "game init attempt...\n";
 	game.init("OpenGL", 1024, 768, SDL_WINDOW_OPENGL);
@@ -44,6 +67,5 @@ int main(int argc, char* argv[])
 
 	std::cout << "game closing...\n";
 	game.destroy();
-
 	return 0;
 }
