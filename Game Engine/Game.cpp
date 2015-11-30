@@ -32,8 +32,9 @@ void Game::init(const char *title, const int width, const int height, int flags)
 
 	RigidbodyManager::Instance()->create(0);
 
-	cameraList = new Camera;
-	cameraList->Camera_Init();
+	cameraList = new Camera[2];
+	cameraList[0].Camera_Init();
+	cameraList[1].Camera_Init(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -90.0f);
 
 	Model* model1 = new Model;
 	modelList.push_back(model1);
@@ -66,17 +67,30 @@ void Game::renderUpdate(const float dt)
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	glViewport(0, 0, 1024 / 2, 768);
 	shaderRenderList[1].Use();
-	cameraList->render(&shaderRenderList[1]);
+	cameraList[0].render(&shaderRenderList[1]);
 	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
 
 	shaderRenderList[0].Use();
-	cameraList->render(&shaderRenderList[0]);
+	cameraList[0].render(&shaderRenderList[0]);
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
 		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
 		modelList[i]->Draw(shaderRenderList[0]);
 	}
+
+	glViewport(1024 / 2, 0, 1024 / 2, 768);
+	shaderRenderList[1].Use();
+	cameraList[1].render(&shaderRenderList[1]);
+	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
+
+	shaderRenderList[0].Use();
+	cameraList[1].render(&shaderRenderList[0]);
+	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
+		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
+		modelList[i]->Draw(shaderRenderList[0]);
+	}
+
 	windowContext.swapBuffers();
 }
 
