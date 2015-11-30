@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;assimp.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;assimp.lib;SOIL.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -70,6 +70,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;assimp.lib;SOIL.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -79,6 +80,7 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="RigidbodyManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformManager.cpp" />
     <ClCompile Include="WindowContext.cpp" />
@@ -93,6 +95,7 @@
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="RigidbodyManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformManager.h" />
     <ClInclude Include="WindowContext.h" />
