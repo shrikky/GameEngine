@@ -61,6 +61,12 @@ bool Game::handleEvents()
 void Game::update(float t, const float dt)
 {
 	RigidbodyManager::Instance()->updateList(t, dt);
+		
+				/*if (Player::getInstance()->health > 0)
+					cout << "You won" << endl;
+				else
+					cout << "Enemy won" << endl;*/
+	
 }
 
 void Game::renderUpdate(const float dt)
@@ -69,8 +75,22 @@ void Game::renderUpdate(const float dt)
 	{
 		RigidbodyManager::Instance()->rigidbodyList[0]->addMomentum(glm::vec3(0.0f, 0.0f, -0.1f));
 	}
-	
+
+	if (Player::getInstance()->health > 0 && BlackBoardAI::Instance()->AIHEALTH > 0){
+
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_A) && !isPressed){
+			Player::getInstance()->Attack();
+		}
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_H) && !isPressed){
+			Player::getInstance()->Hide();
+		}
+
+		_arbiter->Update();
+		_ai->Update();
+	}
+
 	TransformManager::Instance()->updateList();
+
 }
 
 void Game::render()
