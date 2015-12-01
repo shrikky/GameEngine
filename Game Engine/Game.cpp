@@ -114,7 +114,7 @@ void Game::render()
 	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
 
 	shaderRenderList[0].Use();
-	lightManager.setLight();
+	lightManager.setLights();
 	cameraList[1].render(&shaderRenderList[0]);
 	for (int i = 0; i < TransformManager::Instance()->transformList.size(); i++) {
 		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
