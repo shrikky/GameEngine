@@ -2,10 +2,13 @@
 
 layout (location = 0) in vec4 VertexPosition;
 
+out vec4 outPos;
+
 uniform mat4 view;
 uniform mat4 projection;
 
 void main()
 {
-    gl_Position = projection * view * VertexPosition;
+	outPos = projection * view * VertexPosition;
+    gl_Position = outPos; 
 }
