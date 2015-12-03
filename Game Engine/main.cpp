@@ -1,8 +1,7 @@
 #include <SDL/SDL.h>
+#include <iostream>
 
 #include "Game.h"
-
-#include <iostream>
 
 int main(int argc, char* argv[])
 {
@@ -44,6 +43,5 @@ int main(int argc, char* argv[])
 
 	std::cout << "game closing...\n";
 	game.destroy();
-
 	return 0;
 }

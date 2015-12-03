@@ -14,6 +14,9 @@
 #include "Player.h"
 #include "SoundManager.h"
 #include "LightManager.h"
+#include "UIButton.h"
+
+#include <SDL/SDL.h>
 
 #include <vector>
 class Game
@@ -40,5 +43,5 @@ private:
 	std::vector<Model*> modelList;
 	Camera* cameraList;
 	LightManager lightManager;
-
+	UIButton* uiButton;
 };
