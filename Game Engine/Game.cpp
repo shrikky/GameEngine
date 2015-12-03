@@ -45,10 +45,16 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	
 	TheSoundManager::Instance()->load("music/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
 	TheSoundManager::Instance()->playMusic("music1", -1);
+
+	//UIButton::Instance()->init(0, 0, 320, 240);
+	uiButton = new UIButton;
+	uiButton->screen = SDL_GetWindowSurface(windowContext.getWindow());
+	uiButton->init(0, 0, 320, 240);
 }
 
 bool Game::handleEvents()
 {
+	uiButton->handleEvents();
 	return InputHandler::Instance()->update();
 }
 
@@ -93,6 +99,8 @@ void Game::render()
 		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
 		modelList[i]->Draw(shaderRenderList[0]);
 	}
+
+	uiButton->show();
 
 	windowContext.swapBuffers();
 }

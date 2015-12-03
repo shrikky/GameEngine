@@ -11,6 +11,9 @@
 #include "RigidbodyManager.h"
 #include "ParticleSystem.h"
 #include "SoundManager.h"
+#include "UIButton.h"
+
+#include <SDL/SDL.h>
 
 #include <vector>
 class Game
@@ -33,4 +36,5 @@ private:
 	ParticleSystem *particleSystem;
 	std::vector<Model*> modelList;
 	Camera* cameraList;
+	UIButton* uiButton;
 };

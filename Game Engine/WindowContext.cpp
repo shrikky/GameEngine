@@ -51,3 +51,7 @@ void WindowContext::destroy()
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(window);
 }
+
+SDL_Window* WindowContext::getWindow() {
+	return window;
+}
