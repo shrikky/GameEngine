@@ -30,6 +30,8 @@ void Game::init(const char *title, const int width, const int height, int flags)
 
 	TransformManager::Instance()->create(0);
 	TransformManager::Instance()->transformList[0]->translate(glm::vec3(4.0f, 0.0f, 0.0f));
+	boxCollider = new Collider3D;
+	boxCollider->createBoxCollider(1.0f, 1.0f, 1.0f, 0);
 
 	RigidbodyManager::Instance()->create(0);
 
@@ -42,7 +44,7 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	modelList[1]->Model_Init("objects/nanosuit/nanosuit.obj");
 	TransformManager::Instance()->create(1);
 	TransformManager::Instance()->transformList[1]->translate(glm::vec3(0.0f, -7.5f, 0.0f));
-	
+
 	TheSoundManager::Instance()->load("music/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
 	TheSoundManager::Instance()->playMusic("music1", -1);
 
@@ -56,7 +58,6 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	uiButton = new UIButton;
 	uiButton->screen = SDL_GetWindowSurface(windowContext.getWindow());
 	uiButton->init(0, 0, 320, 240);
-
 }
 
 bool Game::handleEvents()
@@ -73,7 +74,6 @@ void Game::update(float t, const float dt)
 					cout << "You won" << endl;
 				else
 					cout << "Enemy won" << endl;*/
-	
 }
 
 void Game::renderUpdate(const float dt)
@@ -97,7 +97,7 @@ void Game::renderUpdate(const float dt)
 	}
 
 	TransformManager::Instance()->updateList();
-
+	ColliderManager::Instance()->updateList();
 }
 
 void Game::render()

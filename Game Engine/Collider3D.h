@@ -16,7 +16,9 @@ public:
 	std::vector<glm::vec3> vertexSet;
 	std::vector<glm::vec3> faceNormalSet;
 
-	void createBoxCollider(float length, float breadth, float width);
+	void createBoxCollider(float length, float breadth, float width, int id);
+
+	int id;
 };
 
 

@@ -1,5 +1,6 @@
 #include "ColliderManager.h"
 
+ColliderManager* ColliderManager::s_pInstance = 0;
 
 ColliderManager::ColliderManager()
 {
@@ -394,6 +395,7 @@ void ColliderManager::updateList()
 			// MTV contains the mininum translation vector
 			// Use getPointOfCollision to get the point of contact and use it to resolve collision
 			std::cout << "Objects are colliding";
+			std::cout << "ids: " << colliderUpdateList[i]->id << " " << colliderUpdateList[i - 1]->id;
 		}
 	}
 }

@@ -77,6 +77,8 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Arbiter.cpp" />
     <ClCompile Include="BlackBoardAI.cpp" />
+    <ClCompile Include="Collider3D.cpp" />
+    <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HealthExpert.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -100,6 +102,8 @@
     <ClInclude Include="Arbiter.h" />
     <ClInclude Include="BlackBoardAI.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider3D.h" />
+    <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HealthExpert.h" />
     <ClInclude Include="InputHandler.h" />

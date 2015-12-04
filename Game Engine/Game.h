@@ -15,6 +15,7 @@
 #include "SoundManager.h"
 #include "LightManager.h"
 #include "UIButton.h"
+#include "ColliderManager.h"
 
 #include <SDL/SDL.h>
 
@@ -44,4 +45,5 @@ private:
 	Camera* cameraList;
 	LightManager lightManager;
 	UIButton* uiButton;
+	Collider3D *boxCollider;
 };

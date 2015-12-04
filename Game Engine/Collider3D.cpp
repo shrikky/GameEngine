@@ -1,5 +1,5 @@
 #include "Collider3D.h"
-
+#include "ColliderManager.h"
 
 Collider3D::Collider3D()
 {
@@ -14,8 +14,9 @@ Collider3D::~Collider3D()
 {
 }
 
-void Collider3D::createBoxCollider(float length, float breadth, float width)
+void Collider3D::createBoxCollider(float length, float breadth, float width, int id)
 {
+	this->id = id;
 /*
 	a-----------b
 	|   FRONT	|	length
@@ -60,4 +61,6 @@ void Collider3D::createBoxCollider(float length, float breadth, float width)
 	faceNormalSet.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 	faceNormalSet.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
 	faceNormalSet.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+
+	ColliderManager::Instance()->colliderUpdateList.push_back(this);
 }
