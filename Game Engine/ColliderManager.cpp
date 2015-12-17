@@ -384,6 +384,14 @@ glm::vec3 ColliderManager::getpointOfCollision(Collider3D &A, Collider3D &B, glm
 
 }
 
+void ColliderManager::create(float length, float breadth, float width, int id)
+{
+	Collider3D* collider = new Collider3D;
+	collider->createBoxCollider(length, breadth, width, id);
+
+	colliderUpdateList.push_back(collider);
+}
+
 void ColliderManager::updateList()
 {
 	glm::vec3 mtv;

@@ -23,7 +23,8 @@ public:
 		return s_pInstance;
 	}
 	void updateList();
-	
+	void create(float length, float breadth, float width, int id);
+
 	std::vector<Collider3D *>  colliderUpdateList;
 private:
 	static ColliderManager* s_pInstance;
@@ -33,7 +34,7 @@ private:
 	glm::vec3 getMinMax(glm::vec3 n, Collider3D A, float &min, float &max);
 	glm::vec3 getPOCin1D(Collider3D A, Collider3D B, glm::vec3 n);
 	glm::vec3 LineCollision(Line &l1, Line &l2);
-	
+
 	bool isColliding(Collider3D A, Collider3D B, glm::vec3 &mtv);
 	glm::vec3 getpointOfCollision(Collider3D &A, Collider3D &B, glm::vec3 mtv);
 };
