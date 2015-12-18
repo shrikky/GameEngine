@@ -1,4 +1,7 @@
 #include "InputHandler.h"
+#include "imgui.h"
+#include "imgui_impl_sdl_gl3.h"
+#include "GL/glew.h"
 
 InputHandler* InputHandler::s_pInstance = 0;
 
@@ -171,6 +174,7 @@ bool InputHandler::update()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
+		ImGui_ImplSdlGL3_ProcessEvent(&event);
 		switch (event.type)
 		{
 		case SDL_QUIT:
@@ -208,10 +212,10 @@ bool InputHandler::update()
 		case SDL_KEYUP:
 			onKeyUp();
 			break;
-
 		default:
 			break;
 		}
+		
 	}
 
 	return true;

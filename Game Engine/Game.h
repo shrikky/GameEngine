@@ -14,9 +14,8 @@
 #include "Player.h"
 #include "SoundManager.h"
 #include "LightManager.h"
-#include "UIButton.h"
 #include "ColliderManager.h"
-
+#include "GUIManager.h"
 #include <SDL/SDL.h>
 
 #include <vector>
@@ -32,6 +31,7 @@ public:
 	void renderUpdate(const float dt);
 	void render();
 	void destroy();
+	void renderUI();
 private:
 	Arbiter* _arbiter = new Arbiter();
 	bool isPressed;
@@ -44,6 +44,6 @@ private:
 	std::vector<Model*> modelList;
 	Camera* cameraList;
 	LightManager lightManager;
-	UIButton* uiButton;
 	Collider3D *boxCollider;
+	
 };

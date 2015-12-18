@@ -1,6 +1,7 @@
 #include "HealthExpert.h"
 #include <iostream>
 #include "BlackBoardAI.h"
+#include "GUIManager.h"
 using namespace std;
 HealthExpert::HealthExpert()
 {
@@ -27,7 +28,9 @@ void HealthExpert::CheckHealth(){
 void HealthExpert::Heal(){
 
 	if (bbInstance->AIHEALTH < 100){
-		std::cout << "With you hidden, the enemy is taking all the time in the world to heal itself" << endl;
+		//GUIManager::Instance()->message = "With you hidden, the enemy is taking all the time in the world to heal itself";
+		GUIManager::Instance()->displayText("With you hidden, the enemy is taking all the time in the world to heal itself", 0);
+	//	std::cout << "With you hidden, the enemy is taking all the time in the world to heal itself" << endl;
 			bbInstance->AIHEALTH += 10;
 	}
 }

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include "GUIManager.h"
 Player* Player::instance = 0;
 
 Player* Player::getInstance(){
@@ -38,10 +39,11 @@ void Player::Attack(){
 
 		int damage = rand() % 30 + 1;
 		BlackBoardAI::Instance()->AIHEALTH -= damage;
-		std::cout << "Player Dealt " << damage << " Damage to the Enemy" << std::endl;
+	//	std::cout << "Player Dealt " << damage << " Damage to the Enemy" << std::endl;
+		GUIManager::Instance()->displayText2("Damage dealt by the player to the enemy:", damage);
 		BlackBoardAI::Instance()->isSpotted = true; 
 		BlackBoardAI::Instance()->isAITurn = true;
-		printf("A is pressed\n");
+		//printf("A is pressed\n");
 	
 
 }
@@ -53,6 +55,6 @@ void Player::Hide(){
 }
 void Player::DisplayStats(){
 	if (health > 0)
-	cout << "Player Health : "<< health<<endl;
+			GUIManager::Instance()->displayText2("player Health:", health);
 }
 

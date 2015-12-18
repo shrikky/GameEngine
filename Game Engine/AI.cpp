@@ -1,6 +1,7 @@
 #include "AI.h"
 #include "BlackBoardAI.h"
 #include <iostream>
+#include "GUIManager.h"
 #include "Player.h"
 AI::AI()
 {
@@ -21,17 +22,19 @@ void AI::Update(){
 	DisplayStats();
 }
 void AI::Attack(){
-	std::cout << "Enemy is attacking you" << std:: endl;
+	GUIManager::Instance()->displayText("Enemy is attacking you", 0);
+	//std::cout << "Enemy is attacking you" << std:: endl;
 	int damage = rand() % 25 + 1;
 	Player::getInstance()->health -= damage;
-	std::cout << "AI Dealt: " << damage << " Damage to the player"<< std::endl;
+	GUIManager::Instance()->displayText("AI Dealt:u", damage);
+	//std::cout << "AI Dealt: " << damage << " Damage to the player"<< std::endl;
 	Player::getInstance()->DisplayStats();
 	bbInstance->isAITurn = false;
 }
 
 void AI::Search(){
 	if(!bbInstance->isSpotted)
-	std::cout << "Searching for player  . . . . . " << std::endl;
+		GUIManager::Instance()->displayText("Searching foir plkayer", 0);
 	if (bbInstance->isSpotted){
 		bbInstance->_botstate = bbInstance->ATTACK;
 	}
@@ -39,5 +42,5 @@ void AI::Search(){
 }
 void AI::DisplayStats(){
 	if (*_AIhealth > 0)
-	std::cout << "Enemy's Health: " << *_AIhealth << std::endl;
+		GUIManager::Instance()->displayText("Enemy health", *_AIhealth);
 }

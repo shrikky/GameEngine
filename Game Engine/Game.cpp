@@ -1,4 +1,8 @@
 #include "Game.h"
+#include "imgui.h"
+#include "imgui_impl_sdl_gl3.h"
+
+
 
 Game::Game()
 {
@@ -54,15 +58,10 @@ void Game::init(const char *title, const int width, const int height, int flags)
 	lightManager.addLight(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 5.0f, 0.0f), LightType::DIRECTIONAL);
 	lightManager.addLight(glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 5.0f), LightType::DIRECTIONAL);
 
-	//UIButton::Instance()->init(0, 0, 320, 240);
-	uiButton = new UIButton;
-	uiButton->screen = SDL_GetWindowSurface(windowContext.getWindow());
-	uiButton->init(0, 0, 320, 240);
 }
 
 bool Game::handleEvents()
 {
-	uiButton->handleEvents();
 	return InputHandler::Instance()->update();
 }
 
@@ -104,6 +103,7 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, 1024 / 2, 768);
+
 	shaderRenderList[1].Use();
 	cameraList[0].render(&shaderRenderList[1]);
 	particleSystem->render(shaderRenderList[1].Program, shaderComputeList[0].Program);
@@ -127,9 +127,9 @@ void Game::render()
 		TransformManager::Instance()->transformList[i]->render(&shaderRenderList[0]);
 		modelList[i]->Draw(shaderRenderList[0]);
 	}
+	//glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
 
-	uiButton->show();
-
+	GUIManager::Instance()->renderUI();
 	windowContext.swapBuffers();
 }
 

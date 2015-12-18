@@ -1,33 +1,33 @@
-d:\users\mj9617\gameengine\game engine\debug\vc120.pdb
-d:\users\mj9617\gameengine\game engine\debug\vc120.idb
-d:\users\mj9617\gameengine\game engine\debug\blackboardai.obj
-d:\users\mj9617\gameengine\game engine\debug\collider3d.obj
-d:\users\mj9617\gameengine\game engine\debug\collidermanager.obj
-d:\users\mj9617\gameengine\game engine\debug\game.obj
-d:\users\mj9617\gameengine\game engine\debug\healthexpert.obj
-d:\users\mj9617\gameengine\game engine\debug\inputhandler.obj
-d:\users\mj9617\gameengine\game engine\debug\lightmanager.obj
-d:\users\mj9617\gameengine\game engine\debug\main.obj
-d:\users\mj9617\gameengine\game engine\debug\movementexpert.obj
-d:\users\mj9617\gameengine\game engine\debug\particlesystem.obj
-d:\users\mj9617\gameengine\game engine\debug\player.obj
-d:\users\mj9617\gameengine\game engine\debug\rigidbody.obj
-d:\users\mj9617\gameengine\game engine\debug\rigidbodymanager.obj
-d:\users\mj9617\gameengine\game engine\debug\soundmanager.obj
-d:\users\mj9617\gameengine\game engine\debug\source.obj
-d:\users\mj9617\gameengine\game engine\debug\strategicexpert.obj
-d:\users\mj9617\gameengine\game engine\debug\transform.obj
-d:\users\mj9617\gameengine\game engine\debug\transformmanager.obj
-d:\users\mj9617\gameengine\game engine\debug\uibutton.obj
-d:\users\mj9617\gameengine\game engine\debug\windowcontext.obj
-d:\users\mj9617\gameengine\game engine\debug\ai.obj
-d:\users\mj9617\gameengine\game engine\debug\arbiter.obj
-d:\users\mj9617\gameengine\debug\game engine.ilk
-d:\users\mj9617\gameengine\debug\game engine.exe
-d:\users\mj9617\gameengine\debug\game engine.pdb
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\cl.command.1.tlog
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\cl.read.1.tlog
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\cl.write.1.tlog
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\link.command.1.tlog
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\link.read.1.tlog
-d:\users\mj9617\gameengine\game engine\debug\game engine.tlog\link.write.1.tlog
+d:\gameengine\game engine\debug\vc120.pdb
+d:\gameengine\game engine\debug\vc120.idb
+d:\gameengine\game engine\debug\blackboardai.obj
+d:\gameengine\game engine\debug\collider3d.obj
+d:\gameengine\game engine\debug\collidermanager.obj
+d:\gameengine\game engine\debug\game.obj
+d:\gameengine\game engine\debug\healthexpert.obj
+d:\gameengine\game engine\debug\inputhandler.obj
+d:\gameengine\game engine\debug\lightmanager.obj
+d:\gameengine\game engine\debug\main.obj
+d:\gameengine\game engine\debug\movementexpert.obj
+d:\gameengine\game engine\debug\particlesystem.obj
+d:\gameengine\game engine\debug\player.obj
+d:\gameengine\game engine\debug\rigidbody.obj
+d:\gameengine\game engine\debug\rigidbodymanager.obj
+d:\gameengine\game engine\debug\soundmanager.obj
+d:\gameengine\game engine\debug\source.obj
+d:\gameengine\game engine\debug\strategicexpert.obj
+d:\gameengine\game engine\debug\transform.obj
+d:\gameengine\game engine\debug\transformmanager.obj
+d:\gameengine\game engine\debug\uibutton.obj
+d:\gameengine\game engine\debug\windowcontext.obj
+d:\gameengine\game engine\debug\ai.obj
+d:\gameengine\game engine\debug\arbiter.obj
+d:\gameengine\debug\game engine.ilk
+d:\gameengine\debug\game engine.exe
+d:\gameengine\debug\game engine.pdb
+d:\gameengine\game engine\debug\game engine.tlog\cl.command.1.tlog
+d:\gameengine\game engine\debug\game engine.tlog\cl.read.1.tlog
+d:\gameengine\game engine\debug\game engine.tlog\cl.write.1.tlog
+d:\gameengine\game engine\debug\game engine.tlog\link.command.1.tlog
+d:\gameengine\game engine\debug\game engine.tlog\link.read.1.tlog
+d:\gameengine\game engine\debug\game engine.tlog\link.write.1.tlog
